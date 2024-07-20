@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indi_essence/screens/profilescreen/myorders.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -8,14 +9,14 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final TextEditingController _shippingAddressController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             CircleAvatar(
               radius: 50.0,
@@ -25,7 +26,7 @@ class _ProfileState extends State<Profile> {
             ),
             SizedBox(height: 16.0),
             Text(
-              'John Doe',
+              'Nishitha',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -40,39 +41,79 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             SizedBox(height: 24.0),
-            ListTile(
-              leading: Icon(Icons.shopping_cart),
-              title: Text('My Orders'),
-              onTap: () {
-                // Handle navigation to My Orders screen
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.payment),
-              title: Text('Payment Methods'),
-              onTap: () {
-                // Handle navigation to Payment Methods screen
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.location_on),
-              title: Text('Shipping Address'),
-              onTap: () {
-                // Handle navigation to Shipping Address screen
-              },
-            ),
+            buildListTile(Icons.shopping_cart, 'My Orders', () {
+              // Handle navigation to My Orders screen
+              navigateToScreen('My Orders', MyOrdersScreen());
+            }),
+            buildListTile(Icons.payment, 'Payment Methods', () {
+              // Handle navigation to Payment Methods screen
+              navigateToScreen('Payment Methods');
+            }),
+            buildListTile(Icons.location_on, 'Shipping Address', () {
+              // Handle navigation to Shipping Address screen with address input
+              navigateToShippingAddressScreen();
+            }),
             SizedBox(height: 24.0),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // Handle logout
-            //   },
-            //   child: Text('Logout'),
-            // ),
+            ElevatedButton(
+              onPressed: () {
+                // Handle logout
+              },
+              child: Text('Logout'),
+            ),
           ],
         ),
       ),
     );
   }
+
+  ListTile buildListTile(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: onTap,
+    );
+  }
+
+  void navigateToScreen(String screen, [Widget? widget]) {
+    // Perform navigation to the specified screen
+    if (widget != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => widget),
+      );
+    }
+
+    print('Navigating to $screen screen');
+  }
+
+  void navigateToShippingAddressScreen() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Enter Shipping Address'),
+          content: TextField(
+            controller: _shippingAddressController,
+            decoration: InputDecoration(labelText: 'Shipping Address'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Handle saving the shipping address or navigating to another screen
+                print('Shipping Address: ${_shippingAddressController.text}');
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
-
-

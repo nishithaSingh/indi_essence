@@ -1,62 +1,39 @@
-// product_info_screen.dart
+// product_info.dart
 
 import 'package:flutter/material.dart';
 
-class ProductInfoScreen extends StatelessWidget {
-  final Product product;
+import '../regionscreen/class.dart';
 
-  ProductInfoScreen({required this.product});
+class ProductInfo extends StatelessWidget {
+  final Product productnew;
+
+  ProductInfo({required this.productnew});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Product Details"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        title: Text(productnew.name),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  product.imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
+            // Display product details here
+            Text(
+              productnew.description,
+              style: TextStyle(fontSize: 16.0),
             ),
             SizedBox(height: 16.0),
             Text(
-              product.name,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              'Price: \$${productnew.price.toString()}',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.0),
-            Text(
-              product.description,
-              style: TextStyle(color: Colors.grey, fontSize: 16.0),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              '\$${product.price.toString()}',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 18.0),
-            ),
+            // Add more details as needed
           ],
         ),
       ),
     );
   }
-}
-
-class Product {
-  final String name;
-  final String description;
-  final String imageUrl;
-  final double price;
-
-  Product(this.name, this.description, this.imageUrl, this.price);
 }

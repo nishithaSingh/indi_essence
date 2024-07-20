@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:indi_essence/screens/arscreens/arscreen.dart';
+import 'package:indi_essence/screens/arscreens/homeview.dart';
 import 'package:indi_essence/screens/authentication/reg_screen.dart';
 import 'package:indi_essence/screens/cartscreen/cartmain.dart';
 import 'package:indi_essence/screens/homescreen/homescreen.dart';
 import 'package:indi_essence/screens/authentication/signup_screen.dart';
+import 'package:indi_essence/screens/homescreen/product/productinfo.dart';
 import 'package:indi_essence/screens/homescreen/product/productscreen.dart';
 import 'package:indi_essence/screens/homescreen/regionscreen/regionscreen.dart';
 import 'package:indi_essence/screens/learnscreen/learn_screen.dart';
+import 'package:indi_essence/screens/profilescreen/myorders.dart';
 import 'package:indi_essence/screens/profilescreen/profile.dart';
 import 'package:indi_essence/screens/stories/storiesmain.dart';
 import 'package:indi_essence/splash_screen.dart';
@@ -40,12 +42,14 @@ class MyApp extends StatelessWidget {
         '/registration_screen': (context) => const RegistrationScreen(),
         '/navbarscreen':(_) =>  const NavBarScreen(),
         '/storiesymain':(_) =>  const StoriesMain(),
-        '/cartmain':(_) => const CartScreen(),
+        '/cartmain':(_) => CartScreen(),
         '/profile':(_) => const Profile(),
         '/regionscreen':(_) =>  RegionScreen(),
         '/learn':(_) =>  LearnScreen(),
         '/productscreen':(_) => ProductGridScreen(),
-        // '/productinfo':(_) => ProductGridScreenInfo(),
+        // '/productinfo': (_) => ProductInfo(productnew: null),
+        '/myorders':(_) => MyOrdersScreen(),
+
         // '/arscreen':(_) => ARScreen(),
 
 
